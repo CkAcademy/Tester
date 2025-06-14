@@ -1,4 +1,4 @@
-const DATA_URL = "https://raw.githubusercontent.com/WantedGang/WG-TRepo/master/repo.json";
+const DATA_URL = "TRepo_mevcut.json";
 const table = document.querySelector("table");
 const tbody = document.getElementById("eklentiTablo");
 const searchInput = document.getElementById("searchInput");
@@ -12,12 +12,13 @@ function renderTable(items) {
   items.forEach(item => {
     tbody.innerHTML += `
       <tr>
-        <td><img src="${item.icon || ''}" alt="" width="32"/></td>
+        <td><img src="${item.iconUrl || ''}" alt="" width="32"/></td>
         <td>${item.name || ""}</td>
-        <td>${item.type || ""}</td>
         <td>${item.description || ""}</td>
-        <td>${item.lang || ""}</td>
+        <td>${(item.tvTypes || []).join(", ")}</td>
+        <td>${item.language || ""}</td>
         <td>${item.version || ""}</td>
+        <td>${(item.authors || []).join(", ")}</td>
       </tr>
     `;
   });
@@ -26,7 +27,6 @@ function renderTable(items) {
 fetch(DATA_URL)
   .then(r => r.json())
   .then(json => {
-    // repo.json yapısında "plugins" dizisi var
     allPlugins = json.plugins || [];
     renderTable(allPlugins);
     loading.style.display = "none";
@@ -41,8 +41,9 @@ searchInput.addEventListener("input", function() {
   const val = this.value.toLowerCase();
   const filtered = allPlugins.filter(e =>
     (e.name || "").toLowerCase().includes(val) ||
-    (e.type || "").toLowerCase().includes(val) ||
-    (e.description || "").toLowerCase().includes(val)
+    (e.description || "").toLowerCase().includes(val) ||
+    (e.tvTypes || []).join(", ").toLowerCase().includes(val) ||
+    (e.authors || []).join(", ").toLowerCase().includes(val)
   );
   renderTable(filtered);
 });
