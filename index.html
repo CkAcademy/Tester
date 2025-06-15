@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>CloudStream Türkçe Depo ve Eklenti Listesi</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#fe4d01">
+    <style>
+        body { 
+    font-family: Arial, sans-serif; 
+    margin: 20px; 
+    background-color: #f5f5f5; 
+    text-align: center; 
+}
+
+.plugin-status-badge {
+    display: inline-block;
+    font-size: 10px;
+    padding: 3px 6px;
+    border-radius: 4px;
+    margin-left: 5px;
+    color: white;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+.new-plugin-badge {
+    background-color: #28a745;
+}
+
+.updated-plugin-badge {
+    background-color: #ffc107;
+    color: #333;
+}
+h2 { color: #333; }
+
+.stats { 
+    font-size: 18px; 
+    font-weight: bold; 
+    margin-bottom: 10px; 
+}
+
+.filter-container { margin-bottom: 10px; }
+select, input { 
+    padding: 6px; 
+    font-size: 14px; 
+    border-radius: 4px; 
+    border: 1px solid #ccc; 
+    margin: 4px; 
+}
+button { 
+    padding: 6px; 
+    font-size: 14px; 
+    border-radius: 4px; 
+    background: #007BFF; 
+    color: white; 
+    border: none; 
+    cursor: pointer; 
+    transition: 0.3s ease; 
+}
+button:hover { background: #0056b3; }
+
+table { 
+    width: 95%; 
+    border-collapse: separate; 
+    border-spacing: 0; 
+    margin: auto; 
+    background: white; 
+    border-radius: 10px; 
+    overflow: hidden; 
+    border: 2px solid #007BFF;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+th, td { 
+    border: 1px solid #ccc; 
+    padding: 10px; 
+    text-align: left; 
+    font-size: 14px; 
+}
+th { 
+    background-color: #007BFF; 
+    color: white; 
+    font-size: 15px; 
+    border-bottom: 2px solid #0056b3;
+}
+tr:hover { 
+    background-color: #f9f9f9;
+    transition: 0.2s ease-in-out;
+}
+
+.bold { font-weight: bold; }
+.desc { font-size: 12px; color: #555; }
+
+.repo-badge {
+    display: inline-block;
+    font-size: 12px;
+    padding: 5px 8px;
+    border-radius: 6px;
+    margin-right: 4px;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.repo-latte { background-color: #fe4d01; }
+.repo-nikstream { background-color: #0077cc; }
+.repo-feroxxcs3 { background-color: #d35400; }
+.repo-makoto { background-color: #388e3c; }
+.repo-kekikdevam { background-color: #512da8; }
+.repo-kekikan { background-color: #c2185b; }
+.repo-sarapcanagii { background-color: #455a64; }
+.repo-makoto2 { background-color: #007BFF; }        
+
+.header-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #007BFF;
+    text-align: center;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.stats-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.stats-card {
+    background-color: #ffffff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    border: 2px solid #007BFF;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    min-width: 240px;
+    text-align: center;
+    transition: 0.3s ease-in-out;
+}
+
+.stats-card:hover {
+    background-color: #007BFF;
+    color: white;
+    transform: scale(1.05);
+}
+
+th.sortable {
+    cursor: pointer;
+    position: relative;
+    padding-right: 20px;
+}
+
+th.sortable::after {
+    content: '⇅';
+    position: absolute;
+    right: 5px;
+    opacity: 0.5;
+}
+
+th.sortable.asc::after {
+    content: '↑';
+    opacity: 1;
+}
+
+th.sortable.desc::after {
+    content: '↓';
+    opacity: 1;
+}
+
+.new-plugin-badge {
+    background-color: #28a745;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    margin-left: 8px;
+    font-weight: bold;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.6; }
+    100% { opacity: 1; }
+}
+    </style>
+</head>
+<body>
+
+    <div id="block-message" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); color: white; font-size: 24px; text-align: center; padding-top: 20%; z-index: 9999;">
+        Bu site yalnızca tarayıcılarda görüntülenebilir.<br>
+        Lütfen siteye bir web tarayıcısı üzerinden erişin.
+    </div>
+
+    <div id="content">
+        <h2 class="header-title" onclick="location.reload();">Cloudstream Türkçe Depo ve Eklentleri</h2>
+
+        <div class="stats-container">
+            <div class="stats-card"><span id="totalPlugins">Toplam Eklenti: 0</span></div>
+            <div class="stats-card"><span id="totalRepos">Toplam Depo: 0</span></div>
+            <div class="stats-card"><span id="lastUpdated">Son Güncelleme: Bilinmiyor</span></div>
+        </div>
+
+        <div class="filter-container">
+            <label for="filterSelect">İçeriğe Göre Görüntüle:</label>
+            <select id="filterSelect">
+                <option value="all">Tümünü Göster</option>
+            </select>
+
+            <label for="repoFilterSelect">Depo Seç:</label>
+            <select id="repoFilterSelect">
+                <option value="all">Tüm Depolar</option>
+            </select>
+        </div>
+
+        <div class="filter-container">
+            <input type="text" id="searchInput" placeholder="Eklenti Ara...">
+            <button id="clearSearch">Temizle</button>
+        </div>
+        <div class="filter-container">
+            <button id="addRepoButton">Hemen Depo Yükle</button>
+        </div>
+
+        <table id="pluginTable">
+            <thead>
+                <tr>
+                    <th>İkon</th>
+                    <th class="sortable" data-sort="name">Ad</th>
+                    <th class="sortable" data-sort="repoCodesDisplay">Depo Adı</th>
+                    <th>Eklentiye Sahip Diğer Depolar</th>
+                    <th class="sortable" data-sort="tvTypes">İçerik Türü</th>
+                    <th class="sortable" data-sort="description">Eklenti Açıklaması</th>
+                    <th class="sortable" data-sort="language">Dil</th>
+                    <th class="sortable" data-sort="version">Ver.</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <div id="repoSelectModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 1000;">
+        <div style="background-color: white; margin: 10% auto; padding: 20px; width: 80%; max-width: 400px; border-radius: 10px; position: relative;">
+            <span id="closeModalButton" style="position: absolute; top: 10px; right: 10px; cursor: pointer; font-size: 20px;">×</span>
+            <h2>Depo Seç ve Ekle</h2>
+            <p>Aşağıdaki depolardan birini seçerek CloudStream'e ekleyebilirsiniz:</p>
+            
+            <select id="availableReposSelect" style="width: 100%; padding: 10px; margin-bottom: 15px;">
+                <option value="">Depo Seçiniz</option>
+            </select>
+
+            <button id="confirmAddRepoButton" disabled>Seçilen Depoyu Ekle</button>
+        </div>
+    </div>
+
+
+    <script>
+        const repoJsonUrlParts = {
+             "Latte": "raw.githubusercontent.com/GitLatte/Sinetech/main/repo.json",
+             "nikstream": "raw.githubusercontent.com/nikyokki/nik-cloudstream/master/repo.json", 
+             "feroxxcs3": "raw.githubusercontent.com/feroxx/Kekik-cloudstream/master/repo.json",
+             "makoto": "raw.githubusercontent.com/MakotoTokioki/Cloudstream-Turkce-Eklentiler/refs/heads/main/repo.json", 
+             "kekikdevam": "raw.githubusercontent.com/maarrem/cs-Kekik/master/repo.json",
+             "kekikan": "raw.githubusercontent.com/Kraptor123/cs-kekikanime/master/repo.json",
+             "sarapcanagii": "raw.githubusercontent.com/sarapcanagii/Pitipitii/master/repo.json",
+             "makoto2": "raw.githubusercontent.com/Sertel392/Makotogecici/main/repo.json"
+        };
+
+    function fetchPlugins() {
+        fetch("https://GitLatte.github.io/repos/data.json")
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP hatası: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            let pluginList = null;
+            let lastUpdatedTimestamp = null;
+
+            if (data && Array.isArray(data.plugins)) {
+                pluginList = data.plugins;
+                lastUpdatedTimestamp = data.timestamp;
+            } else if (Array.isArray(data)) {
+                pluginList = data;
+                lastUpdatedTimestamp = null;
+            } else {
+                document.getElementById("totalPlugins").textContent = "Veri yüklenemedi.";
+                document.getElementById("totalRepos").textContent = "";
+                document.getElementById("lastUpdated").textContent = "Son Güncelleme: Hata";
+                document.getElementById("filterSelect").innerHTML = '<option value="all">Veri Yok</option>';
+                document.getElementById("repoFilterSelect").innerHTML = '<option value="all">Veri Yok</option>';
+                document.querySelector("#pluginTable tbody").innerHTML = '<tr><td colspan="8">Eklenti verisi yüklenemedi veya formatı yanlış.</td></tr>';
+                window.pluginData = { plugins: [], timestamp: null, pluginsByName: {} };
+                return;
+            }
+
+            if (pluginList !== null) {
+                const oneWeekAgo = new Date();
+                oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+
+                const pluginsByName = {};
+                pluginList.forEach(plugin => {
+                    plugin.repoCodesDisplay = (plugin.repoCodes && Array.isArray(plugin.repoCodes) && plugin.repoCodes.length > 0)
+                        ? plugin.repoCodes
+                        : ["Bilinmeyen Depo"];
+
+                    const pluginName = plugin.name;
+                    if (pluginName) {
+                        if (!pluginsByName[pluginName]) {
+                            pluginsByName[pluginName] = [];
+                        }
+                        pluginsByName[pluginName].push(plugin);
+                    }
+
+                    plugin.repoUpdated = {};
+                    if (plugin.repoTimestamps) {
+                        const now = new Date();
+                        const RECENT_THRESHOLD_DAYS = 7;
+                        const recentThresholdMs = RECENT_THRESHOLD_DAYS * 24 * 60 * 60 * 1000;
+
+                        for (const repo in plugin.repoTimestamps) {
+                            const ts = new Date(plugin.repoTimestamps[repo]);
+                            plugin.repoUpdated[repo] = ((now - ts) < recentThresholdMs);
+                        }
+                    }
+                });
+
+                window.pluginData = {
+                    plugins: pluginList,
+                    timestamp: lastUpdatedTimestamp,
+                    pluginsByName: pluginsByName
+                };
+
+                updateStats();
+                updateFilterOptions();
+                updateRepoOptions();
+                updateTable("all", "all", "");
+                updateLastUpdated();
+            }
+        })
+        .catch(error => {
+            console.error("JSON verisi yüklenemedi:", error);
+            document.getElementById("totalPlugins").textContent = "Veri yüklenemedi.";
+            document.getElementById("totalRepos").textContent = "";
+            document.getElementById("lastUpdated").textContent = "Son Güncelleme: Hata";
+            document.getElementById("filterSelect").innerHTML = '<option value="all">Veri Yok</option>';
+            document.getElementById("repoFilterSelect").innerHTML = '<option value="all">Veri Yok</option>';
+            document.querySelector("#pluginTable tbody").innerHTML = '<tr><td colspan="8">Eklenti verisi yüklenemedi veya formatı yanlış.</td></tr>';
+            window.pluginData = { plugins: [], timestamp: null, pluginsByName: {} };
+        });
+    }
+
+    function updateFilterOptions() {
+        if (!window.pluginData || !Array.isArray(window.pluginData.plugins)) {
+            document.getElementById("filterSelect").innerHTML = '<option value="all">Veri Yok</option>';
+            return;
+        }
+
+        const mediaTypeTranslations = {
+            "tvseries": "Dizi", "tv series": "Dizi", "tv-series": "Dizi", "series": "Dizi", "dizi": "Dizi",
+            "anime": "Anime", "animeova": "Anime", "anime ova": "Anime", "anime-ova": "Anime",
+            "movie": "Film", "film": "Film", "movies": "Film", "films": "Film",
+            "animemovie": "Anime Filmi", "anime movie": "Anime Filmi", "anime-movie": "Anime Filmi",
+            "asiandrama": "Asya Dizisi", "asian drama": "Asya Dizisi", "asian-drama": "Asya Dizisi",
+            "podcast": "Podcast", "ova": "OVA (Özel Video Animasyon)", "cartoon": "Çizgi Film",
+            "documentary": "Belgesel", "short": "Kısa Film", "music": "Müzik", "live": "Canlı Yayın",
+            "nsfw": "Yetişkin İçeriği", "others": "Diğer"
+        };
+
+        const uniqueTypes = new Set();
+        window.pluginData.plugins.forEach(plugin => {
+            if (plugin.tvTypes) {
+                plugin.tvTypes.forEach(type => {
+                    const normalizedType = type.toLowerCase().trim();
+                    const translatedType = mediaTypeTranslations[normalizedType];
+                    if (translatedType) {
+                        const mainType = Object.entries(mediaTypeTranslations).find(([_, value]) => value === translatedType)?.[0] || normalizedType;
+                        uniqueTypes.add(mainType);
+                    } else {
+                        uniqueTypes.add(normalizedType);
+                    }
+                });
+            }
+        });
+
+        const sortedTypes = Array.from(uniqueTypes).sort((a, b) => {
+            const aText = mediaTypeTranslations[a] || a;
+            const bText = mediaTypeTranslations[b] || b;
+            return aText.localeCompare(bText, 'tr');
+        });
+
+        let options = '<option value="all">Tümünü Göster</option>';
+        sortedTypes.forEach(type => {
+            const displayText = mediaTypeTranslations[type] || type;
+            options += `<option value="${type}">${displayText}</option>`;
+        });
+
+        document.getElementById("filterSelect").innerHTML = options;
+    }
+
+    function normalizeMediaType(type) {
+        const normalized = type.toLowerCase().trim();
+        if (normalized.includes('tv') && normalized.includes('series')) return 'tvseries';
+        if (normalized.includes('anime') && normalized.includes('ova')) return 'animeova';
+        if (normalized.includes('anime') && normalized.includes('movie')) return 'animemovie';
+        if (normalized.includes('asian') && (normalized.includes('drama') || normalized.includes('dizi'))) return 'asiandrama';
+        return normalized;
+    }
+
+    function updateRepoOptions() {
+        if (!window.pluginData || !Array.isArray(window.pluginData.plugins)) {
+            document.getElementById("repoFilterSelect").innerHTML = '<option value="all">Veri Yok</option>';
+            return;
+        }
+
+        const repoCounts = {};
+        window.pluginData.plugins.forEach(plugin => {
+            if (plugin.repoCodesDisplay) {
+                plugin.repoCodesDisplay.forEach(repo => {
+                    repoCounts[repo] = (repoCounts[repo] || 0) + 1;
+                });
+            }
+        });
+
+        const uniqueRepos = Object.keys(repoCounts).sort();
+
+        let options = '<option value="all">Tüm Depolar</option>';
+        uniqueRepos.forEach(repo => {
+             const displayRepoName = (repo === "Latte") ? "Latte/sinetech" : repo;
+            options += `<option value="${repo}">${displayRepoName} (${repoCounts[repo]})</option>`;
+        });
+
+        document.getElementById("repoFilterSelect").innerHTML = options;
+    }
+
+    function updateStats() {
+        if (!window.pluginData || !Array.isArray(window.pluginData.plugins)) {
+            document.getElementById("totalPlugins").textContent = "Toplam Eklenti: 0";
+            document.getElementById("totalRepos").textContent = "Toplam Depo: 0";
+            return;
+        }
+
+        document.getElementById("totalPlugins").textContent =
+            `Toplam Eklenti: ${window.pluginData.plugins.length}`;
+
+        const uniqueReposInTotal = new Set();
+        window.pluginData.plugins.forEach(plugin => {
+            if (plugin.repoCodesDisplay) {
+                plugin.repoCodesDisplay.forEach(repo => uniqueReposInTotal.add(repo));
+            }
+        });
+        document.getElementById("totalRepos").textContent =
+            `Toplam Depo: ${uniqueReposInTotal.size}`;
+    }
+
+    function updateLastUpdated() {
+        if (!window.pluginData || !window.pluginData.timestamp) {
+            document.getElementById("lastUpdated").textContent = "Son Güncelleme: Bilinmiyor";
+            return;
+        }
+
+        const lastUpdate = new Date(window.pluginData.timestamp);
+        const now = new Date();
+        const diffInMinutes = Math.floor((now - lastUpdate) / (1000 * 60));
+
+        let timeText;
+        if (diffInMinutes < 1) {
+            timeText = "az önce";
+        } else if (diffInMinutes < 60) {
+            timeText = `${diffInMinutes} dakika önce`;
+        } else if (diffInMinutes < 1440) {
+            const hours = Math.floor(diffInMinutes / 60);
+            timeText = `${hours} saat önce`;
+        } else {
+            const days = Math.floor(diffInMinutes / 1440);
+            timeText = `${days} gün önce`;
+        }
+
+        document.getElementById("lastUpdated").textContent = `Son Güncelleme: ${timeText}`;
+    }
+
+    let currentSort = {
+        column: null,
+        direction: 'asc'
+    };
+
+    function initSortableTable() {
+        const headers = document.querySelectorAll('th.sortable');
+        headers.forEach(header => {
+            header.addEventListener('click', () => {
+                const column = header.dataset.sort;
+
+                if (currentSort.column === column) {
+                    currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
+                } else {
+                    currentSort.column = column;
+                    currentSort.direction = 'asc';
+                }
+
+                headers.forEach(h => h.classList.remove('asc', 'desc'));
+                header.classList.add(currentSort.direction);
+
+                const filterType = document.getElementById('filterSelect').value;
+                const repoFilter = document.getElementById('repoFilterSelect').value;
+                const searchQuery = document.getElementById('searchInput').value;
+                updateTable(filterType, repoFilter, searchQuery);
+            });
+        });
+    }
+
+    function updateTable(filterType, repoFilter, searchQuery) {
+        if (!window.pluginData || !Array.isArray(window.pluginData.plugins)) {
+            const tableBody = document.querySelector("#pluginTable tbody");
+            tableBody.innerHTML = '<tr><td colspan="8">Eklenti verisi yüklenemedi veya formatı yanlış.</td></tr>';
+            return;
+        }
+
+        const tableBody = document.querySelector("#pluginTable tbody");
+        tableBody.innerHTML = "";
+
+        const mediaTypeTranslations = {
+            "podcast": "Podcast", "tvseries": "Dizi", "anime": "Anime", "ova": "OVA (Özel Video Animasyon)", "cartoon": "Çizgi Film", "documentary": "Belgesel", "short": "Kısa Film", "music": "Müzik", "live": "Canlı Yayın", "nsfw": "Yetişkin İçeriği", "others": "Diğer", "asiandrama": "Asya Dizisi", "animemovie": "Anime Filmi", "animeova": "Anime", "movie": "Film"
+        };
+
+        function sortPlugins(plugins) {
+            return plugins.sort((a, b) => {
+               
+                if (a.isNew && !b.isNew) {
+                    return -1;
+                }
+                if (!a.isNew && b.isNew) {
+                    return 1; 
+                }
+
+                if (a.isNew === b.isNew) {
+
+                    if (currentSort.column) {
+                        let aVal = a[currentSort.column];
+                        let bVal = b[currentSort.column];
+
+                        if (currentSort.column === 'repoCodesDisplay') {
+                            aVal = (aVal || []).join(',');
+                            bVal = (bVal || []).join(',');
+                        }
+                        else if (currentSort.column === 'tvTypes') {
+                            const mediaTypeTranslations = { /* ... (çeviriler) ... */ };
+                            aVal = aVal ? aVal.map(t => mediaTypeTranslations[t.toLowerCase()] || t).join(',') : '';
+                            bVal = bVal ? bVal.map(t => mediaTypeTranslations[t.toLowerCase()] || t).join(',') : '';
+                        }
+                        else if (currentSort.column === 'version') {
+                            aVal = parseFloat(aVal) || 0;
+                            bVal = parseFloat(bVal) || 0;
+                            if (aVal < bVal) return currentSort.direction === 'asc' ? -1 : 1;
+                            if (aVal > bVal) return currentSort.direction === 'asc' ? 1 : -1;
+                            return 0;
+                        }
+                        else if (currentSort.column === 'name') {
+                            const nameComparison = (aVal || '').localeCompare(bVal || '');
+                            if (nameComparison !== 0) {
+                                return currentSort.direction === 'asc' ? nameComparison : -nameComparison;
+                            }
+                            const aRepo = (a.repoCodesDisplay && a.repoCodesDisplay.length > 0) ? a.repoCodesDisplay[0] : '';
+                            const bRepo = (b.repoCodesDisplay && b.repoCodesDisplay.length > 0) ? b.repoCodesDisplay[0] : '';
+                            return currentSort.direction === 'asc' ? aRepo.localeCompare(bRepo) : -bRepo.localeCompare(aRepo);
+                        }
+                        else {
+                             if (aVal === bVal) return 0;
+                             const comparison = String(aVal || '').localeCompare(String(bVal || ''));
+                             return currentSort.direction === 'asc' ? comparison : -comparison;
+                        }
+
+                         if (aVal === bVal) {
+                             const nameComparison = (a.name || '').localeCompare(b.name || '');
+                             if (nameComparison !== 0) {
+                                 return nameComparison;
+                             }
+                             const aRepo = (a.repoCodesDisplay && a.repoCodesDisplay.length > 0) ? a.repoCodesDisplay[0] : '';
+                             const bRepo = (b.repoCodesDisplay && b.repoCodesDisplay.length > 0) ? b.repoCodesDisplay[0] : '';
+                             return aRepo.localeCompare(bRepo);
+                         }
+                          return 0;
+
+                    }
+
+                    const nameComparison = (a.name || '').localeCompare(b.name || '');
+                    if (nameComparison !== 0) {
+                        return nameComparison;
+                    }
+                    const aRepo = (a.repoCodesDisplay && a.repoCodesDisplay.length > 0) ? a.repoCodesDisplay[0] : '';
+                    const bRepo = (b.repoCodesDisplay && b.repoCodesDisplay.length > 0) ? b.repoCodesDisplay[0] : '';
+                    return aRepo.localeCompare(bRepo);
+                }
+            });
+        }
+
+
+        let filteredPlugins = window.pluginData.plugins
+            .filter(plugin => {
+                if (filterType !== "all") {
+                    if (!plugin.tvTypes) return false;
+                    const normalizedFilterType = normalizeMediaType(filterType);
+                    if (!plugin.tvTypes.some(type => normalizeMediaType(type) === normalizedFilterType)) return false;
+                }
+
+                if (repoFilter !== "all" && (!plugin.repoCodesDisplay || !plugin.repoCodesDisplay.includes(repoFilter))) return false;
+
+                if (searchQuery && !plugin.name.toLowerCase().includes(searchQuery.toLowerCase())) return false;
+                return true;
+            });
+
+        filteredPlugins = sortPlugins(filteredPlugins);
+
+        filteredPlugins.forEach(plugin => {
+            const row = document.createElement("tr");
+            const iconCell = document.createElement("td");
+            const nameCell = document.createElement("td");
+            const repoCell = document.createElement("td");
+            const typeCell = document.createElement("td");
+            const descCell = document.createElement("td");
+            const langCell = document.createElement("td");
+            const verCell = document.createElement("td");
+            const commonReposCell = document.createElement("td");
+
+            const icon = document.createElement("img");
+            icon.src = plugin.iconUrl ? plugin.iconUrl.replace("%size%", "32") : "";
+            icon.width = 32;
+            icon.height = 32;
+            iconCell.appendChild(icon);
+
+            // !!! YETİŞKİN İÇERİK KONTROLÜ VE SANSÜRLEME !!!
+            const isNSFW = plugin.tvTypes && plugin.tvTypes.some(type => type.toLowerCase() === 'nsfw');
+
+            if (isNSFW) {
+                // Sansürlü gösterim
+                nameCell.textContent = '[Sansürlenmiştir!]'; // Adı sansürle
+                descCell.textContent = 'Sadece eklendiği depo üzerinden detaylar görüntülenebilir.'; // Açıklamayı sansürle
+                icon.style.filter = 'blur(15px)'; // İkonu bulanıklaştır
+                nameCell.style.filter = 'blur(5px)'; // Adı bulanıklaştır
+                descCell.style.filter = 'blur(5px)'; // Açıklamayı bulanıklaştır
+
+                 // Hover ile bulanıklığı kaldır
+                 [icon, nameCell, descCell].forEach(element => {
+                     element.addEventListener('mouseover', () => element.style.filter = 'none');
+                     element.addEventListener('mouseout', () => element.style.filter = 'blur(5px)');
+                 });
+
+            } else {
+                // Normal gösterim
+                nameCell.textContent = plugin.name;
+                descCell.textContent = plugin.description || "";
+                // Yetişkin olmayan eklentiler için blur efekti yok
+                icon.style.filter = 'none';
+                nameCell.style.filter = 'none';
+                descCell.style.filter = 'none';
+            }
+
+
+            const RECENT_THRESHOLD_DAYS_FOR_BADGE = 7;
+            const now = new Date();
+            let showNewBadge = false;
+            if (plugin.createdAt) {
+                const createdAtDate = new Date(plugin.createdAt);
+                if ((now - createdAtDate) < RECENT_THRESHOLD_DAYS_FOR_BADGE * 24 * 60 * 60 * 1000) {
+                    showNewBadge = true;
+                }
+            } else if (plugin.isNew) {
+                 showNewBadge = true;
+            }
+
+
+            let showUpdatedBadge = false;
+            if (plugin.repoUpdated) {
+                if (Object.values(plugin.repoUpdated || {}).some(status => status === true)) {
+                    showUpdatedBadge = true;
+                }
+            }
+
+            if (showNewBadge) {
+                const newBadge = document.createElement("span");
+                newBadge.textContent = "Yeni Eklenti! 🖤";
+                newBadge.className = "plugin-status-badge new-plugin-badge";
+                nameCell.appendChild(newBadge);
+            } else if (showUpdatedBadge) {
+                const updatedBadge = document.createElement("span");
+                updatedBadge.textContent = "Güncellendi";
+                updatedBadge.className = "plugin-status-badge updated-plugin-badge";
+                nameCell.appendChild(updatedBadge);
+            }
+
+            repoCell.innerHTML = (plugin.repoCodesDisplay || []).map(repo => {
+                 let updatedIcon = "";
+                 if (plugin.repoUpdated && plugin.repoUpdated[repo]) {
+                     updatedIcon = '<span title="Bu depoda güncellendi" style="margin-left:4px;color:#28a745;font-weight:bold;">↻</span>';
+                 }
+                 const displayRepoName = (repo === "Latte") ? "Latte/sinetech" : repo;
+                const cssSafeRepo = repo.toLowerCase().replace(/[^a-z0-9]/g, '');
+                return `<span class="repo-badge repo-${cssSafeRepo}" data-repo="${repo}" title="Bu depoyu filtrele">${displayRepoName}${updatedIcon}</span>`;
+            }).join(" ");
+
+            // Repo badge'lerine tıklama olayı (filtreleme)
+            repoCell.querySelectorAll('.repo-badge').forEach(badge => {
+                badge.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                    const selectedRepo = badge.dataset.repo;
+                    document.getElementById('repoFilterSelect').value = selectedRepo;
+                    const filterType = document.getElementById('filterSelect').value;
+                    const searchQuery = document.getElementById('searchInput').value;
+                    updateTable(filterType, selectedRepo, searchQuery);
+                    updateStats();
+                });
+            });
+
+
+            typeCell.textContent = (plugin.tvTypes || []).map(type =>
+                mediaTypeTranslations[type.toLowerCase()] || type
+            ).join(", ");
+
+            // descCell zaten yukarıda ayarlandı (sansürlü veya normal)
+
+            langCell.textContent = plugin.language || "";
+            verCell.textContent = plugin.version || "";
+
+            const pluginsWithSameName = window.pluginData.pluginsByName[plugin.name] || [];
+            if (pluginsWithSameName.length > 1) {
+                const commonRepos = pluginsWithSameName
+                    .filter(p => p !== plugin)
+                    .flatMap(p => p.repoCodesDisplay || []);
+
+                const uniqueCommonRepos = Array.from(new Set(commonRepos));
+
+                if (uniqueCommonRepos.length > 0) {
+                     commonReposCell.innerHTML = uniqueCommonRepos.map(repo => {
+                         let updatedIcon = "";
+                         const commonPluginInRepo = pluginsWithSameName.find(p => p.repoCodesDisplay && p.repoCodesDisplay.includes(repo));
+                         if (commonPluginInRepo && commonPluginInRepo.repoUpdated && commonPluginInRepo.repoUpdated[repo]) {
+                             updatedIcon = '<span title="Bu depoda güncellendi" style="margin-left:4px;color:#28a745;font-weight:bold;">↻</span>';
+                         }
+
+                         const displayRepoName = (repo === "Latte") ? "Latte/sinetech" : repo;
+                         const cssSafeRepo = repo.toLowerCase().replace(/[^a-z0-9]/g, '');
+                         // Ortak depo badge'lerine click olayı - Sadece filtreleme yapacak
+                         return `<span class="repo-badge repo-${cssSafeRepo}" data-repo="${repo}" title="Bu eklentinin ${displayRepoName} deposuna göre filtrele">${displayRepoName}${updatedIcon}</span>`;
+                     }).join(" ");
+
+                     commonReposCell.querySelectorAll('.repo-badge').forEach(badge => {
+                         badge.addEventListener('click', (event) => {
+                             event.stopPropagation();
+                             const selectedRepo = badge.dataset.repo;
+                             document.getElementById('repoFilterSelect').value = selectedRepo;
+                             const filterType = document.getElementById('filterSelect').value;
+                             const searchQuery = document.getElementById('searchInput').value;
+                             updateTable(filterType, selectedRepo, searchQuery);
+                             updateStats();
+                         });
+                     });
+
+                } else {
+                     commonReposCell.textContent = "Ortak değil";
+                }
+            } else {
+                 if (plugin.repoCodesDisplay && plugin.repoCodesDisplay.length === 1 && plugin.repoCodesDisplay[0] !== "Bilinmeyen Depo") {
+                      const repo = plugin.repoCodesDisplay[0];
+                      const displayRepoName = (repo === "Latte") ? "Latte/sinetech" : repo;
+                      const cssSafeRepo = repo.toLowerCase().replace(/[^a-z0-9]/g, '');
+                       // Tek depo badge'ine click olayı - Sadece filtreleme yapacak
+                      commonReposCell.innerHTML = `✨ <span class="repo-badge repo-${cssSafeRepo}" data-repo="${repo}" title="Bu depoya göre filtrele">${displayRepoName}</span>`;
+
+                      commonReposCell.querySelectorAll('.repo-badge').forEach(badge => {
+                         badge.addEventListener('click', (event) => {
+                             event.stopPropagation();
+                             const selectedRepo = badge.dataset.repo;
+                             document.getElementById('repoFilterSelect').value = selectedRepo;
+                             const filterType = document.getElementById('filterSelect').value;
+                             const searchQuery = document.getElementById('searchInput').value;
+                             updateTable(filterType, selectedRepo, searchQuery);
+                             updateStats();
+                         });
+                     });
+
+                 } else {
+                      commonReposCell.textContent = "Tek Depo";
+                 }
+            }
+
+
+            row.appendChild(iconCell);
+            row.appendChild(nameCell);
+            row.appendChild(repoCell);
+            row.appendChild(commonReposCell);
+            row.appendChild(typeCell);
+            row.appendChild(descCell);
+            row.appendChild(langCell);
+            row.appendChild(verCell);
+            
+
+            tableBody.appendChild(row);
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const repoJsonUrlParts = {
+             "Latte": "raw.githubusercontent.com/GitLatte/Sinetech/main/repo.json",
+             "nikstream": "raw.githubusercontent.com/nikyokki/nik-cloudstream/master/repo.json", 
+             "feroxxcs3": "raw.githubusercontent.com/feroxx/Kekik-cloudstream/master/repo.json",
+             "makoto": "raw.githubusercontent.com/MakotoTokioki/Cloudstream-Turkce-Eklentiler/refs/heads/main/repo.json", 
+             "kekikdevam": "raw.githubusercontent.com/maarrem/cs-Kekik/master/repo.json",
+             "kekikan": "raw.githubusercontent.com/Kraptor123/cs-kekikanime/master/repo.json",
+             "sarapcanagii": "raw.githubusercontent.com/sarapcanagii/Pitipitii/master/repo.json",
+             "makoto2": "raw.githubusercontent.com/Sertel392/Makotogecici/main/repo.json"
+        };
+
+        // Bu fonksiyon, DOMContentLoaded içinde tanımlandığı için repoJsonUrlParts objesine erişebilir.
+        function getRepoJsonUrlPartByRepoCode(repoCode) {
+             // repoUrlParts objesine bakarak URL parçasını bul
+             return repoJsonUrlParts[repoCode] || null;
+         }
+
+
+        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+        const blockMessage = document.getElementById('block-message');
+        const content = document.getElementById('content');
+
+        const isAndroidWebView = /Android/i.test(userAgent) && /Mobile/i.test(userAgent) && /wv/i.test(userAgent);
+        const isGeneralAndroidApp = /Android/i.test(userAgent) && !/Chrome|Firefox|Safari/i.test(userAgent);
+
+        if (isAndroidWebView || isGeneralAndroidApp) {
+            content.style.display = 'none';
+            blockMessage.style.display = 'flex';
+             return;
+        }
+
+        fetchPlugins();
+        initSortableTable();
+
+        const addRepoButton = document.getElementById('addRepoButton');
+        const repoSelectModal = document.getElementById('repoSelectModal');
+        const closeModalButton = document.getElementById('closeModalButton');
+        const availableReposSelect = document.getElementById('availableReposSelect');
+        const confirmAddRepoButton = document.getElementById('confirmAddRepoButton');
+
+        addRepoButton.addEventListener('click', () => {
+             populateAvailableRepos();
+             repoSelectModal.style.display = 'block';
+        });
+
+        closeModalButton.addEventListener('click', () => {
+             repoSelectModal.style.display = 'none';
+             availableReposSelect.value = "";
+             confirmAddRepoButton.disabled = true;
+        });
+
+         window.addEventListener('click', (event) => {
+             if (event.target === repoSelectModal) {
+                  repoSelectModal.style.display = 'none';
+                  availableReposSelect.value = "";
+                  confirmAddRepoButton.disabled = true;
+             }
+         });
+
+        availableReposSelect.addEventListener('change', () => {
+             if (availableReposSelect.value) {
+                 confirmAddRepoButton.disabled = false;
+             } else {
+                 confirmAddRepoButton.disabled = true;
+             }
+        });
+
+        confirmAddRepoButton.addEventListener('click', () => {
+            const selectedRepoCode = availableReposSelect.value;
+            if (selectedRepoCode) {
+                const repoJsonUrlPart = getRepoJsonUrlPartByRepoCode(selectedRepoCode);
+                if (repoJsonUrlPart) {
+                    const githubPagesBaseUrl = "https://GitLatte.github.io/repos/"; 
+                    const redirectLink = `${githubPagesBaseUrl}redirect/index.html?r=${encodeURIComponent("cloudstreamrepo://" + repoJsonUrlPart)}`; 
+                    console.log("Oluşturulan Redirect Link:", redirectLink);
+
+                     alert("Redirect Link konsolda yazdırıldı. Devam etmek için OK'e tıklayın.");
+                     window.location.href = redirectLink; 
+                } else {
+                     alert(`Hata: '${selectedRepoCode}' deposu için repo.json URL parçası bulunamadı.`);
+                }
+            }
+        });
+
+        function populateAvailableRepos() {
+            const uniqueRepos = new Set();
+            if (window.pluginData && Array.isArray(window.pluginData.plugins)) {
+                 window.pluginData.plugins.forEach(plugin => {
+                     if (plugin.repoCodesDisplay) {
+                         plugin.repoCodesDisplay.forEach(repo => uniqueRepos.add(repo));
+                     }
+                 });
+            }
+
+            let optionsHtml = '<option value="">Depo Seçiniz</option>';
+             Array.from(uniqueRepos).sort().forEach(repo => {
+                  const displayRepoName = (repo === "Latte") ? "Latte/sinetech" : repo;
+                  optionsHtml += `<option value="${repo}">${displayRepoName}</option>`;
+             });
+
+            availableReposSelect.innerHTML = optionsHtml;
+        }
+
+         // Bu fonksiyon, DOMContentLoaded içinde tanımlandığı için repoJsonUrlParts objesine erişebilir.
+         function getRepoJsonUrlPartByRepoCode(repoCode) {
+             // repoUrlParts objesine bakarak URL parçasını bul
+             return repoJsonUrlParts[repoCode] || null;
+         }
+
+
+        document.getElementById('filterSelect').addEventListener('change', () => {
+            const filterType = document.getElementById('filterSelect').value;
+            const repoFilter = document.getElementById('repoFilterSelect').value;
+            const searchQuery = document.getElementById('searchInput').value;
+            updateTable(filterType, repoFilter, searchQuery);
+        });
+
+        document.getElementById('repoFilterSelect').addEventListener('change', () => {
+            const filterType = document.getElementById('filterSelect').value;
+            const repoFilter = document.getElementById('repoFilterSelect').value;
+            const searchQuery = document.getElementById('searchInput').value;
+            updateTable(filterType, repoFilter, searchQuery);
+            updateStats();
+        });
+
+        document.getElementById('searchInput').addEventListener('input', () => {
+            const filterType = document.getElementById('filterSelect').value;
+            const repoFilter = document.getElementById('repoFilterSelect').value;
+            const searchQuery = document.getElementById('searchInput').value;
+            updateTable(filterType, repoFilter, searchQuery);
+        });
+
+         document.getElementById("clearSearch").addEventListener("click", function() {
+            document.getElementById("searchInput").value = "";
+            const filterType = document.getElementById("filterSelect").value;
+            const repoFilter = document.getElementById("repoFilterSelect").value;
+            updateTable(filterType, repoFilter, "");
+        });
+    });
+    </script>
+    <script>
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('service-worker.js')
+            .then(function(registration) {
+              console.log('Service Worker kayıtlı:', registration.scope);
+            })
+            .catch(function(error) {
+              console.log('Service Worker kaydı başarısız:', error);
+            });
+        }
+        </script>
+        <script>
+            let startY = 0;
+            
+            document.addEventListener("touchstart", function(event) {
+                startY = event.touches[0].pageY;
+            });
+            
+            document.addEventListener("touchmove", function(event) {
+                let currentY = event.touches[0].pageY;
+                
+                if (currentY - startY > 100 && window.scrollY === 0) {
+                    location.reload();
+                }
+            });
+            </script>
+            
+</body>
+</html>
