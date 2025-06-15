@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <title>CloudStream Türkçe Depo ve Eklenti Listesi</title>
+    <title>TRepo Eklenti Listesi</title>
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#fe4d01">
     <style>
@@ -418,7 +418,7 @@ th.sortable.desc::after {
 
         let options = '<option value="all">Tüm Depolar</option>';
         uniqueRepos.forEach(repo => {
-             const displayRepoName = (repo === "Latte") ? "Latte/sinetech" : repo;
+             const displayRepoName = (repo === "WG-TRepo") ? "TRepo" : repo;
             options += `<option value="${repo}">${displayRepoName} (${repoCounts[repo]})</option>`;
         });
 
