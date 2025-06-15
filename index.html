@@ -104,14 +104,8 @@ tr:hover {
     cursor: pointer;
 }
 
-.repo-latte { background-color: #fe4d01; }
-.repo-nikstream { background-color: #0077cc; }
-.repo-feroxxcs3 { background-color: #d35400; }
-.repo-makoto { background-color: #388e3c; }
-.repo-kekikdevam { background-color: #512da8; }
-.repo-kekikan { background-color: #c2185b; }
-.repo-sarapcanagii { background-color: #455a64; }
-.repo-makoto2 { background-color: #007BFF; }        
+
+.repo-TRepo { background-color: #c2185b; }        
 
 .header-title {
     font-size: 28px;
@@ -260,18 +254,11 @@ th.sortable.desc::after {
 
     <script>
         const repoJsonUrlParts = {
-             "Latte": "raw.githubusercontent.com/GitLatte/Sinetech/main/repo.json",
-             "nikstream": "raw.githubusercontent.com/nikyokki/nik-cloudstream/master/repo.json", 
-             "feroxxcs3": "raw.githubusercontent.com/feroxx/Kekik-cloudstream/master/repo.json",
-             "makoto": "raw.githubusercontent.com/MakotoTokioki/Cloudstream-Turkce-Eklentiler/refs/heads/main/repo.json", 
-             "kekikdevam": "raw.githubusercontent.com/maarrem/cs-Kekik/master/repo.json",
-             "kekikan": "raw.githubusercontent.com/Kraptor123/cs-kekikanime/master/repo.json",
-             "sarapcanagii": "raw.githubusercontent.com/sarapcanagii/Pitipitii/master/repo.json",
-             "makoto2": "raw.githubusercontent.com/Sertel392/Makotogecici/main/repo.json"
+             "TRepo": "raw.githubusercontent.com/WantedGang/WG-TRepo/master/repo.json"
         };
 
     function fetchPlugins() {
-        fetch("https://GitLatte.github.io/repos/data.json")
+        fetch("https://CkAcademy.github.io/Tester/data.json")
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP hatası: ${response.status}`);
@@ -804,14 +791,7 @@ th.sortable.desc::after {
 
     document.addEventListener('DOMContentLoaded', () => {
         const repoJsonUrlParts = {
-             "Latte": "raw.githubusercontent.com/GitLatte/Sinetech/main/repo.json",
-             "nikstream": "raw.githubusercontent.com/nikyokki/nik-cloudstream/master/repo.json", 
-             "feroxxcs3": "raw.githubusercontent.com/feroxx/Kekik-cloudstream/master/repo.json",
-             "makoto": "raw.githubusercontent.com/MakotoTokioki/Cloudstream-Turkce-Eklentiler/refs/heads/main/repo.json", 
-             "kekikdevam": "raw.githubusercontent.com/maarrem/cs-Kekik/master/repo.json",
-             "kekikan": "raw.githubusercontent.com/Kraptor123/cs-kekikanime/master/repo.json",
-             "sarapcanagii": "raw.githubusercontent.com/sarapcanagii/Pitipitii/master/repo.json",
-             "makoto2": "raw.githubusercontent.com/Sertel392/Makotogecici/main/repo.json"
+             "TRepos": "raw.githubusercontent.com/WantedGang/WG-TRepo/master/repo.json"    
         };
 
         // Bu fonksiyon, DOMContentLoaded içinde tanımlandığı için repoJsonUrlParts objesine erişebilir.
