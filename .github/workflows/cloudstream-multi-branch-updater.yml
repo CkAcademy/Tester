@@ -133,7 +133,6 @@ EOF
       - name: Clone external repos (builds branch only)
         run: |
           git clone --depth=1 --single-branch --branch builds https://github.com/GitLatte/repos.git sources/repos || true
-          
 
       - name: Aggregate files except plugins.json and repo.json
         run: |
