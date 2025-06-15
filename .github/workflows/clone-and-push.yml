@@ -1,32 +1,33 @@
-name: Klonla ve Yeni Repoya Aktar
+name: Başka Depodan Dosya Aktarımı
 
 on:
   workflow_dispatch:
 
 jobs:
-  clone-and-push:
+  copy-repo:
     runs-on: ubuntu-latest
     steps:
-    - name: Kaynak repoyu mirror olarak klonla
-      run: |
-        git clone --mirror https://github.com/GitLatte/repos.git
+    - name: Mevcut repoyu checkout et
+      uses: actions/checkout@v4
 
-    - name: gh CLI yükle
+    - name: Kaynak repoyu klonla
       run: |
-        sudo apt-get update
-        sudo apt-get install gh -y
+        git clone https://github.com/GitLatte/repos.git kaynak
 
-    - name: Yeni repo oluştur
-      env:
-        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+    - name: Mevcut repodaki tüm dosyaları sil (.git ve .github hariç)
       run: |
-        echo $GH_TOKEN | gh auth login --with-token
-        gh repo create CkAcademy/repos-clone --public --confirm || echo "Repo zaten var"
+        shopt -s extglob
+        rm -rf !(kaynak|.git|.github)
+    
+    - name: Kaynak dosyalarını kopyala
+      run: |
+        cp -r kaynak/. .
+        rm -rf kaynak
 
-    - name: İçeriği yeni repoya aktar
-      env:
-        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+    - name: Değişiklikleri commit et ve pushla
       run: |
-        cd repos.git
-        git remote set-url --push origin https://x-access-token:${GH_TOKEN}@github.com/CkAcademy/repos-clone.git
-        git push --mirror
+        git config user.name "github-actions[bot]"
+        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git add .
+        git commit -m "GitLatte/repos deposundan dosya aktarımı" || echo "Değişiklik yok"
+        git push
