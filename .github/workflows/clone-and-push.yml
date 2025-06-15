@@ -7,14 +7,20 @@ jobs:
   clone-and-push:
     runs-on: ubuntu-latest
     steps:
-    - name: Kaynak repoyu klonla (mirror)
+    - name: Kaynak repoyu mirror olarak klonla
       run: |
         git clone --mirror https://github.com/GitLatte/repos.git
+
+    - name: gh CLI yükle
+      run: |
+        sudo apt-get update
+        sudo apt-get install gh -y
 
     - name: Yeni repo oluştur
       env:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
       run: |
+        echo $GH_TOKEN | gh auth login --with-token
         gh repo create CkAcademy/repos-clone --public --confirm || echo "Repo zaten var"
 
     - name: İçeriği yeni repoya aktar
@@ -22,5 +28,5 @@ jobs:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
       run: |
         cd repos.git
-        git remote set-url --push origin https://CkAcademy:${GH_TOKEN}@github.com/CkAcademy/repos-clone.git
+        git remote set-url --push origin https://x-access-token:${GH_TOKEN}@github.com/CkAcademy/repos-clone.git
         git push --mirror
