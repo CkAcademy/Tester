@@ -1,0 +1,26 @@
+name: Klonla ve Yeni Repoya Aktar
+
+on:
+  workflow_dispatch:
+
+jobs:
+  clone-and-push:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Kaynak repoyu klonla (mirror)
+      run: |
+        git clone --mirror https://github.com/GitLatte/repos.git
+
+    - name: Yeni repo oluştur
+      env:
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      run: |
+        gh repo create CkAcademy/repos-clone --public --confirm || echo "Repo zaten var"
+
+    - name: İçeriği yeni repoya aktar
+      env:
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      run: |
+        cd repos.git
+        git remote set-url --push origin https://CkAcademy:${GH_TOKEN}@github.com/CkAcademy/repos-clone.git
+        git push --mirror
