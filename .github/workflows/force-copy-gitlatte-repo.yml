@@ -1,4 +1,4 @@
-name: GitLatte Repos Force Aktarımı
+name: GitLatte/repos içeriğini kendi repoma aktar
 
 on:
   workflow_dispatch:
@@ -7,17 +7,16 @@ jobs:
   copy-gitlatte-repo:
     runs-on: ubuntu-latest
     steps:
-      - name: Kendi repoyu çek (push için yetkili)
+      - name: Kendi repoyu çek
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
-      - name: Kaynak depoyu klonla
-        run: |
-          git clone --depth=1 https://github.com/GitLatte/repos.git kaynak
+      - name: GitLatte/repos'u klonla
+        run: git clone --depth=1 https://github.com/GitLatte/repos.git kaynak
 
-      - name: Tüm dosyaları sil (.git ve .github hariç)
+      - name: Mevcut dosyaları sil (.git ve .github hariç)
         run: |
           shopt -s extglob
           rm -rf !(kaynak|.git|.github)
@@ -27,7 +26,7 @@ jobs:
           cp -a kaynak/. .
           rm -rf kaynak
 
-      - name: Commit & Force Push
+      - name: Commit ve force push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -35,5 +34,4 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add .
           git commit -m "GitLatte/repos içeriği aktarıldı (force sync)" || echo "No changes to commit"
-          git branch
           git push --force origin HEAD:main
